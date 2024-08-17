@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <Navbar
       maxWidth="full"
-      className="bg-mySecondary text-white [&_*]:text-xl py-1"
+      className="bg-mySecondary py-1 text-white [&_*]:text-xl"
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent>
@@ -37,7 +37,7 @@ export default function Header() {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden md:flex gap-4" justify="center">
+      <NavbarContent className="hidden gap-4 md:flex" justify="center">
         <NavbarItem>
           <Link color="foreground" href="#" className="text-inherit">
             I campi
@@ -62,7 +62,7 @@ export default function Header() {
         </NavbarItem>
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="md:hidden text-inherit"
+          className="text-inherit md:hidden"
         />
       </NavbarContent>
       <NavbarMenu>
@@ -73,8 +73,8 @@ export default function Header() {
                 index === 2
                   ? "primary"
                   : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
+                    ? "danger"
+                    : "foreground"
               }
               className="w-full text-inherit"
               href="#"

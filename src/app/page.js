@@ -9,7 +9,7 @@ export default function Home() {
         subtitle="Prenota il tuo campo da tennis, padel o basket in pochi click"
         image="/assets/imgs/heroImgs/courts.webp"
         imageCredit={"Foto di Emediong Umoh su Unsplash"}
-        maxHeight="590px"
+        maxHeight="550px"
       />
     </main>
   );
