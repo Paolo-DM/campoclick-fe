@@ -8,7 +8,7 @@ import "./globals.css";
 export const metadata = {
   title: "Campo Click",
   description:
-    "Prenota il tuo campo da tennis, padel o calcetto in pochi click",
+    "Prenota il tuo campo da tennis, padel o basket in pochi click",
 };
 
 export default function RootLayout({ children }) {
