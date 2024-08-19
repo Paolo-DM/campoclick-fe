@@ -7,7 +7,6 @@ function CardWithText({ title, description, image, path }) {
   return (
     <Card
       isFooterBlurred
-      isPressable
       className="col-span-12 h-[250px] w-11/12 sm:col-span-7 md:h-[350px] md:w-2/5"
     >
       <CardHeader className="absolute top-0 z-10 flex-col items-start bg-black/70">
@@ -40,8 +39,8 @@ function CardWithText({ title, description, image, path }) {
             <p className="text-tiny text-white/60">Scopri i campi da {title}</p>
           </div>
         </div>
-        <Link href={path}>
-          <Button size="md">PRENOTA</Button>
+        <Link href={path} className="bg-white/80 p-1.5 rounded-md">
+          PRENOTA
         </Link>
       </CardFooter>
     </Card>
