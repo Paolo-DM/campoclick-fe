@@ -22,7 +22,7 @@ export default function Header() {
   return (
     <Navbar
       maxWidth="full"
-      className="bg-mySecondary py-1 text-white [&_*]:text-xl"
+      className="bg-myPrimary py-1 text-white [&_*]:text-xl [&_*]:md:text-2xl"
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent>
