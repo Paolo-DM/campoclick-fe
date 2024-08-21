@@ -1,6 +1,9 @@
 "use client";
 
+// React
 import React from "react";
+
+// NextUI
 import {
   Navbar,
   NavbarBrand,
@@ -9,9 +12,10 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
+} from "@nextui-org/navbar";
+
+// Next.js
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Header() {

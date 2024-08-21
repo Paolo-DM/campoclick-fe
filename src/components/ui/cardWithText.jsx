@@ -1,5 +1,7 @@
 // NextUi
-import { Card, CardFooter, CardHeader, Button } from "@nextui-org/react";
+import { Card, CardFooter, CardHeader } from "@nextui-org/card";
+
+// Next.js
 import Image from "next/image";
 import Link from "next/link";
 
