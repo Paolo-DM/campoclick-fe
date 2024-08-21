@@ -1,14 +1,8 @@
-import { useState } from "react";
 import { Input } from "@nextui-org/input";
-import { bookCourt } from "@/actions/bookingAction";
 
-function BookingForm() {
+function BookingForm({ selectedDate, selectedTime }) {
   return (
-    <form
-      className="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2"
-      //   action={bookCourt}
-      onSubmit={handleSubmit}
-    >
+    <div className="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
       <Input
         label="Nome"
         placeholder="Inserisci il tuo nome"
@@ -41,7 +35,17 @@ function BookingForm() {
         color="primary"
         name="email"
       />
-    </form>
+      <Input
+        type="hidden"
+        name="selectedDate"
+        value={selectedDate}
+      />
+      <Input
+        type="hidden"
+        name="selectedTime"
+        value={selectedTime}
+      />
+    </div>
   );
 }
 

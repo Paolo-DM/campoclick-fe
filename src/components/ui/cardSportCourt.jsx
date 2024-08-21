@@ -21,28 +21,39 @@ import { today, getLocalTimeZone } from "@internationalized/date";
 // Next.js
 import Image from "next/image";
 
+// Server actions
+import { bookCourt } from "@/actions/bookingAction";
+
 function CardSportCourt() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure(); // Hook da NextUI per gestire lo stato della modale
   const [activeTab, setActiveTab] = useState("availability"); // Stato per gestire la tab attiva
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd"),
-  ); // Stato per gestire la data selezionata
+  ); // Stato per gestire la data selezionata, inizialmente impostata a oggi
   const [selectedTime, setSelectedTime] = useState(""); // Stato per gestire l'orario selezionato
-  
-  const closeModal = () => {
-    onClose();
+
+  // Funzione per resettare la modale
+  const resetModal = () => {
     setActiveTab("availability");
     setSelectedDate(format(new Date(), "yyyy-MM-dd"));
     setSelectedTime("");
   };
 
-  const logDate = (calendarDate) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    await bookCourt(formData);
+    // formData.reset();
+    // resetModal();
+  };
+
+  // Funzione per gestire il cambio di data nel calendario
+  const handleDateChange = (calendarDate) => {
     // Estraggo anno, mese e giorno dalla data selezionata restituita dal componente Calendar
     const { year, month, day } = calendarDate;
     // Formatto la data in formato "yyyy-MM-dd" utilizzando la libreria date-fns
     const formattedDate = format(new Date(year, month - 1, day), "yyyy-MM-dd");
-
-    console.log("Formatted Date: ", formattedDate);
+    setSelectedDate(formattedDate); // Aggiorna lo stato con la nuova data selezionata
   };
 
   const timeSlots = [
@@ -60,9 +71,11 @@ function CardSportCourt() {
 
   return (
     <>
-      <Card className="py-4">
+      <Card className="py-4" aria-labelledby="court-name">
         <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
-          <h4 className="text-large font-bold">Campo Mergellina</h4>
+          <h4 className="text-large font-bold" id="court-name">
+            Campo Mergellina
+          </h4>
           <p className="text-tiny font-bold uppercase">Terra rossa</p>
           <small className="text-default-500">Coperto</small>
         </CardHeader>
@@ -90,7 +103,7 @@ function CardSportCourt() {
         footerActions={
           activeTab === "availability" ? (
             <>
-              <Button color="danger" variant="bordered" onPress={closeModal}>
+              <Button color="danger" variant="bordered" onPress={onClose}>
                 Chiudi
               </Button>
               {/* Deve essere attivo solo se è stata selezionata una data e un orario */}
@@ -104,10 +117,10 @@ function CardSportCourt() {
             </>
           ) : (
             <>
-              <Button color="danger" variant="light" onPress={closeModal}>
+              <Button color="danger" variant="light" onPress={onClose}>
                 Chiudi
               </Button>
-              <Button color="primary" type="submit">
+              <Button color="primary" type="submit" form="bookingForm">
                 Prenota
               </Button>
             </>
@@ -126,11 +139,10 @@ function CardSportCourt() {
                 {/* Calendario */}
                 <div className="flex w-full justify-center border-b-2 pb-4 md:w-1/2 md:border-b-0 md:border-r-2 md:pb-0">
                   <Calendar
-                    className=""
                     aria-label="Date"
                     defaultValue={today(getLocalTimeZone())}
                     minValue={today(getLocalTimeZone())}
-                    onChange={(date) => logDate(date)}
+                    onChange={handleDateChange}
                   />
                 </div>
                 {/* Fasce orari disponibili */}
@@ -161,7 +173,12 @@ function CardSportCourt() {
             </Tab>
             {/* TAB "PRENOTA" */}
             <Tab key="book" title="Prenota" isDisabled={activeTab !== "book"}>
-              <BookingForm />
+              <form id="bookingForm" onSubmit={handleSubmit}>
+                <BookingForm
+                  selectedDate={selectedDate}
+                  selectedTime={selectedTime}
+                />
+              </form>
             </Tab>
           </Tabs>
         </div>
