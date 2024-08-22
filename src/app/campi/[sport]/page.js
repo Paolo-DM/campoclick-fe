@@ -5,10 +5,14 @@ import CardSportCourt from "@/components/ui/cardSportCourt";
 
 // Utils
 import { sportsSlugData } from "@/utils/properties";
-import { availableSports } from "@/utils/properties";
 
-function SportPage({ params }) {
-  // Recupero i dati dello sport corrente, in base al parametro passato nell'URL e confrontato con i dati presenti in sportsSlugData
+async function SportPage({ params }) {
+  // Recupero i dati dei campi dal backend usando il parametro sport passato nell'URL
+  const data = await fetch(
+    `${process.env.NEXT_PUBLIC_API_HOST}/api/courts?${params.sport}`,
+  ).then((response) => response.json());
+
+  // Recupero i dati dello sport corrente dall'array esportato da properties, in base al parametro passato nell'URL
   const currentSport = sportsSlugData?.find(
     (sport) => sport?.label === params?.sport,
   );
@@ -32,14 +36,15 @@ function SportPage({ params }) {
         <h1 className="mb-8 text-center text-xl font-bold text-myPrimary md:mb-20 md:text-5xl">
           Scegli il campo, verifica la disponibilità e prenota
         </h1>
-        <div className="flex flex-wrap justify-evenly gap-6">
-          {availableSports.map((sport) => (
+        <div className="flex flex-wrap justify-center gap-6">
+          {data.map((court) => (
             <CardSportCourt
-              key={sport.name}
-              title={sport.name}
-              description={sport.description}
-              image={sport.image}
-              path={sport.href}
+              key={court.cour_id}
+              title={court.court_name}
+              surface={court.court_surface}
+              description={court.court_type}
+              imageSrc={court.image_url}
+              path={court.href}
             />
           ))}
         </div>
