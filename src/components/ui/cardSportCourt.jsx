@@ -24,7 +24,7 @@ import Image from "next/image";
 // Server actions
 import { bookCourt } from "@/actions/bookingAction";
 
-function CardSportCourt() {
+function CardSportCourt({ title, description, imageSrc, path, surface }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure(); // Hook da NextUI per gestire lo stato della modale
   const [activeTab, setActiveTab] = useState("availability"); // Stato per gestire la tab attiva
   const [selectedDate, setSelectedDate] = useState(
@@ -74,16 +74,20 @@ function CardSportCourt() {
       <Card className="py-4" aria-labelledby="court-name">
         <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
           <h4 className="text-large font-bold" id="court-name">
-            Campo Mergellina
+            Campo {title}
           </h4>
-          <p className="text-tiny font-bold uppercase">Terra rossa</p>
-          <small className="text-default-500">Coperto</small>
+          {/* <p className="text-tiny font-bold uppercase">{description}</p> */}
+          <small className="text-default-500">
+            Superficie: {surface}
+          </small>
         </CardHeader>
         <CardBody className="overflow-visible py-2">
+          {console.log("image ", imageSrc)}
           <Image
             alt="Card background"
-            className="h-auto w-full rounded-xl object-cover"
-            src="/assets/imgs/sports/tennis.webp"
+            className="h-[200px] w-[400px] rounded-xl object-cover object-center"
+            // src="/assets/imgs/sports/tennis.webp"
+            src={imageSrc}
             width={300}
             height={150}
           />
