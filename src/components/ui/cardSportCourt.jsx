@@ -1,7 +1,7 @@
 "use client";
 
 // React
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import CustomModal from "./customModal";
@@ -31,6 +31,24 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
     format(new Date(), "yyyy-MM-dd"),
   ); // Stato per gestire la data selezionata, inizialmente impostata a oggi
   const [selectedTime, setSelectedTime] = useState(""); // Stato per gestire l'orario selezionato
+
+  useEffect(() => {
+    // Recupero dal database i dati sugli orari disponibili per il campo quando il componente viene montato
+    fetchSchedules();
+  }, []);
+
+  // Funzione per recuperare i dati degli orari disponibili per il campo
+  const fetchSchedules = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_HOST}/schedules/?court_id=1`,
+      );
+      const data = await response.json();
+      console.log("data ", data);
+    } catch (error) {
+      console.error("Error fetching schedules:", error);
+    }
+  };
 
   // Funzione per resettare la modale
   const resetModal = () => {
@@ -77,12 +95,9 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
             Campo {title}
           </h4>
           {/* <p className="text-tiny font-bold uppercase">{description}</p> */}
-          <small className="text-default-500">
-            Superficie: {surface}
-          </small>
+          <small className="text-default-500">Superficie: {surface}</small>
         </CardHeader>
         <CardBody className="overflow-visible py-2">
-          {console.log("image ", imageSrc)}
           <Image
             alt="Card background"
             className="h-[200px] w-[400px] rounded-xl object-cover object-center"
@@ -101,7 +116,7 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
       <CustomModal
         isOpen={isOpen}
         onClose={onOpenChange}
-        title="Custom Modal Title"
+        title={`Prenotazione campo`}
         size="4xl"
         buttonText={activeTab === "availability" ? "Avanti" : "Prenota"}
         footerActions={

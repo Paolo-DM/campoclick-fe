@@ -15,7 +15,6 @@ const CustomModal = ({
   children,
   footerActions,
   size,
-  minHeight,
 }) => {
   return (
     <Modal

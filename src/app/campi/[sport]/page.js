@@ -9,7 +9,8 @@ import { sportsSlugData } from "@/utils/properties";
 async function SportPage({ params }) {
   // Recupero i dati dei campi dal backend usando il parametro sport passato nell'URL
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_API_HOST}/api/courts?${params.sport}`,
+    `${process.env.NEXT_PUBLIC_API_HOST}/courts?${params.sport}`,
+    { cache: "default" },
   ).then((response) => response.json());
 
   // Recupero i dati dello sport corrente dall'array esportato da properties, in base al parametro passato nell'URL
