@@ -46,6 +46,7 @@ async function SportPage({ params }) {
               description={court.court_type}
               imageSrc={court.image_url}
               path={court.href}
+              courtId={court.court_id}
             />
           ))}
         </div>

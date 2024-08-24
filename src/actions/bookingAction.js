@@ -1,17 +1,13 @@
 "use server";
 
 export const bookCourt = async (formData) => {
-  "use server";
-  
   const name = formData.get("name");
   const surname = formData.get("surname");
   const phone = formData.get("phone");
   const email = formData.get("email");
-  const selectedDate = formData.get("selectedDate");
-  const selectedTime = formData.get("selectedTime");
-  const booking_date = selectedDate;
-  const booking_time = 9;
-  const schedule = 1;
+  const booking_date = formData.get("selectedDate");
+  const booking_time = formData.get("selectedTime");
+  const schedule = formData.get("scheduleId");
   const body = {
     schedule,
     booking_date,
@@ -21,7 +17,7 @@ export const bookCourt = async (formData) => {
     email,
     phone,
   };
-
+  
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_HOST}/bookings/create/`,
@@ -39,7 +35,6 @@ export const bookCourt = async (formData) => {
     }
 
     const data = await response.json();
-    console.log("Booking successful:", data);
     return data;
   } catch (error) {
     console.error("Booking failed:", error);

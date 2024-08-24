@@ -1,6 +1,6 @@
 import { Input } from "@nextui-org/input";
 
-function BookingForm({ selectedDate, selectedTime }) {
+function BookingForm({ selectedDate, selectedTime, scheduleId }) {
   return (
     <div className="grid grid-cols-1 gap-4 rounded-lg md:grid-cols-2">
       <Input
@@ -44,6 +44,11 @@ function BookingForm({ selectedDate, selectedTime }) {
         type="hidden"
         name="selectedTime"
         value={selectedTime}
+      />
+      <Input
+        type="hidden"
+        name="scheduleId"
+        value={scheduleId}
       />
     </div>
   );

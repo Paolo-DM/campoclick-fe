@@ -20,49 +20,60 @@ import { today, getLocalTimeZone } from "@internationalized/date";
 
 // Next.js
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // Server actions
 import { bookCourt } from "@/actions/bookingAction";
 
-function CardSportCourt({ title, description, imageSrc, path, surface }) {
+function CardSportCourt({
+  title,
+  description,
+  imageSrc,
+  path,
+  surface,
+  courtId,
+}) {
+  const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure(); // Hook da NextUI per gestire lo stato della modale
   const [activeTab, setActiveTab] = useState("availability"); // Stato per gestire la tab attiva
   const [selectedDate, setSelectedDate] = useState(
     format(new Date(), "yyyy-MM-dd"),
   ); // Stato per gestire la data selezionata, inizialmente impostata a oggi
   const [selectedTime, setSelectedTime] = useState(""); // Stato per gestire l'orario selezionato
+  const [scheduleId, setScheduleId] = useState(""); // Stato per gestire l'id dello schedule selezionato
+  const [schedules, setSchedules] = useState([]); // Stato per gestire gli orari disponibili
 
   useEffect(() => {
-    // Recupero dal database i dati sugli orari disponibili per il campo quando il componente viene montato
+    // Recupero dal database i dati sugli orari disponibili per il campo selezionato quando il componente viene montato
     fetchSchedules();
-  }, []);
+  }, [selectedDate, courtId]);
 
-  // Funzione per recuperare i dati degli orari disponibili per il campo
+  // Funzione per recuperare i dati degli orari disponibili per il campo selezionato
   const fetchSchedules = async () => {
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/schedules/?court_id=1`,
+        // `${process.env.NEXT_PUBLIC_API_HOST}/schedules/?court_id=${courtId}`,
+        // http://127.0.0.1:8000/api/schedules/?date=2023-08-30&court_id=1
+        `${process.env.NEXT_PUBLIC_API_HOST}/schedules/?date=${selectedDate}&court_id=${courtId}`,
       );
       const data = await response.json();
-      console.log("data ", data);
+      setSchedules(data);
     } catch (error) {
       console.error("Error fetching schedules:", error);
     }
   };
 
-  // Funzione per resettare la modale
-  const resetModal = () => {
-    setActiveTab("availability");
-    setSelectedDate(format(new Date(), "yyyy-MM-dd"));
-    setSelectedTime("");
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    await bookCourt(formData);
-    // formData.reset();
-    // resetModal();
+    try {
+      const bookingResponse = await bookCourt(formData);
+      const bookingId = bookingResponse?.booking_id;
+      // In caso di prenotazione andata a buon fine, utente viene reindirizzato alla pagina di prenotazione confermata, dove viene passato l'id della prenotazione per poter visualizzare i dettagli della prenotazione con una successiva chiamata all'API
+      router.push(`/prenotazione-confermata?booking_id=${bookingId}`);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   // Funzione per gestire il cambio di data nel calendario
@@ -73,19 +84,6 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
     const formattedDate = format(new Date(year, month - 1, day), "yyyy-MM-dd");
     setSelectedDate(formattedDate); // Aggiorna lo stato con la nuova data selezionata
   };
-
-  const timeSlots = [
-    { time: "09:00 - 10:00", price: "€15" },
-    { time: "10:00 - 11:00", price: "€20" },
-    { time: "11:00 - 12:00", price: "€20" },
-    { time: "12:00 - 13:00", price: "€18" },
-    { time: "13:00 - 14:00", price: "€12" },
-    { time: "14:00 - 15:00", price: "€12" },
-    { time: "15:00 - 16:00", price: "€15" },
-    { time: "16:00 - 17:00", price: "€20" },
-    { time: "17:00 - 18:00", price: "€25" },
-    { time: "18:00 - 19:00", price: "€25" },
-  ];
 
   return (
     <>
@@ -171,19 +169,24 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
                     Scegli una fascia oraria tra quelle disponibili
                   </p>
                   <div className="flex flex-row flex-wrap justify-center">
-                    {timeSlots.map((slot) => (
+                    {schedules.map((slot) => (
                       <Button
-                        key={slot.time}
+                        // isDisabled={!slot.is_available}
+                        key={slot.time_slot}
                         className="m-2 rounded-lg p-2 text-xs shadow-md"
-                        onPress={() => setSelectedTime(slot.time)}
-                        // color "primary" if slot.time === selectedTime}
+                        onPress={() => {
+                          setSelectedTime(slot.time_slot);
+                          setScheduleId(slot.schedule_id);
+                        }}
                         color={
-                          slot.time === selectedTime ? "primary" : "default"
+                          slot.time_slot === selectedTime
+                            ? "primary"
+                            : "default"
                         }
                       >
-                        {slot.time}
+                        {slot.time_slot}:00 - {slot.time_slot + 1}:00
                         <br />
-                        {slot.price}
+                        {slot.price} €
                       </Button>
                     ))}
                   </div>
@@ -196,6 +199,7 @@ function CardSportCourt({ title, description, imageSrc, path, surface }) {
                 <BookingForm
                   selectedDate={selectedDate}
                   selectedTime={selectedTime}
+                  scheduleId={scheduleId}
                 />
               </form>
             </Tab>
