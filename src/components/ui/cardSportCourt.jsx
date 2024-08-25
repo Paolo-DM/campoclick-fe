@@ -27,9 +27,8 @@ import { bookCourt } from "@/actions/bookingAction";
 
 function CardSportCourt({
   title,
-  description,
   imageSrc,
-  path,
+  imageCredit,
   surface,
   courtId,
 }) {
@@ -87,7 +86,7 @@ function CardSportCourt({
 
   return (
     <>
-      <Card className="py-4" aria-labelledby="court-name">
+      <Card className="py-4 w-11/12 md:w-fit" aria-labelledby="court-name" isHoverable>
         <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
           <h4 className="text-large font-bold" id="court-name">
             Campo {title}
@@ -96,14 +95,18 @@ function CardSportCourt({
           <small className="text-default-500">Superficie: {surface}</small>
         </CardHeader>
         <CardBody className="overflow-visible py-2">
-          <Image
-            alt="Card background"
-            className="h-[200px] w-[400px] rounded-xl object-cover object-center"
-            // src="/assets/imgs/sports/tennis.webp"
-            src={imageSrc}
-            width={300}
-            height={150}
-          />
+          <div className="relative">
+            <Image
+              alt="Card background"
+              className="h-[200px] w-[400px] rounded-xl object-cover object-center"
+              src={imageSrc}
+              width={300}
+              height={150}
+            />
+            <p className="absolute  text-xs bottom-0.5 left-1.5 text-white/70">
+              {imageCredit}
+            </p>
+          </div>
         </CardBody>
         <CardFooter className="">
           <Button className="w-full bg-myPrimary text-white" onPress={onOpen}>
