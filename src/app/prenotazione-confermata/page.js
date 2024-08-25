@@ -19,11 +19,16 @@ async function BookingConfirmationPage({ searchParams }) {
   const bookingData = await booking.json();
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-start gap-8 bg-gray-50 pt-16">
+    <div className="flex min-h-screen w-full flex-col items-center justify-start gap-6 pt-16">
       <h1 className="text-center text-3xl font-bold text-myPrimary">
         Prenotazione Confermata!
       </h1>
-      <Card className="w-11/12 shadow-lg md:max-w-[800px]">
+      <p className="text-center text-xl text-mySecondary">
+        Per qualsiasi informazione puoi contattarci al nostro numero
+        dell’assistenza clienti &nbsp;
+        <strong>+39 333 3333333</strong>.
+      </p>
+      <Card className="mt-6 w-11/12 bg-myTertiary/60 text-mySecondary shadow-lg md:max-w-[800px]">
         <CardBody className="md:flex-rows flex flex-col justify-center gap-4 space-y-4 p-6 md:flex-row md:items-center">
           <div className="">
             <p>
@@ -53,7 +58,7 @@ async function BookingConfirmationPage({ searchParams }) {
             className="h-full w-full rounded-md md:w-1/2"
           />
         </CardBody>
-        <CardFooter className="justify-center bg-gray-100 py-4">
+        <CardFooter className="justify-center bg-myPrimary/30 py-4">
           <Link
             href="/"
             className="rounded-md bg-myPrimary px-6 py-3 text-white transition duration-300 ease-in-out hover:bg-myPrimary/80"
