@@ -33,7 +33,7 @@ export default function Home() {
         <div className="flex flex-wrap justify-evenly gap-6">
           {availableSports.map((sport) => (
             <CardWithText
-              key={sport.name}
+              key={sport.id}
               title={sport.name}
               description={sport.description}
               image={sport.image}
