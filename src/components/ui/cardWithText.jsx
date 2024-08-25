@@ -20,9 +20,9 @@ function CardWithText({ title, description, image, path }) {
       <Image
         src={image}
         alt="Sport"
-        width={660}
-        height={350}
-        className="h-[350px] w-full rounded-t-lg object-cover"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className=" rounded-t-lg object-cover"
         placeholder="blur"
       />
       <CardFooter className="absolute bottom-0 z-10 border-t-1 border-default-600 bg-black/40 dark:border-default-100">
