@@ -35,7 +35,7 @@ function Footer() {
           {/* Link alle pagine principali */}
           <div className="w-full md:w-1/4">
             <h3 className="mb-4 text-lg font-semibold">Link Utili</h3>
-            <ul className="flex justify-between md:flex-col space-y-1">
+            <ul className="flex justify-between space-y-1 md:flex-col">
               <li>
                 <Link
                   href="/"
@@ -80,7 +80,7 @@ function Footer() {
           </div>
 
           {/* Icone dei social network */}
-          <div className="w-full md:w-1/4 ">
+          <div className="w-full md:w-1/4">
             <h3 className="mb-4 text-lg font-semibold">Seguici</h3>
             <div className="flex space-x-6">
               <Link
@@ -127,7 +127,7 @@ function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 text-center text-sm border-t border-white pt-4">
+        <div className="mt-12 border-t border-white text-center text-sm">
           <p>
             &copy; {new Date().getFullYear()} Campo Click. Tutti i diritti
             riservati. Progetto realizzato da{" "}
