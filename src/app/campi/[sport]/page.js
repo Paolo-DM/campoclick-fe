@@ -38,7 +38,7 @@ async function SportPage({ params }) {
         </h1>
         <div className="flex flex-wrap justify-center gap-6">
           {/* Crea un componente CardSportCourt per ciascun campo sportivo presente nel database */}
-          {data.length > 0 ? (
+          {data?.length > 0 ? (
             data.map((court) => (
               <CardSportCourt
                 key={court.court_id}
