@@ -98,7 +98,7 @@ function CardSportCourt({
           <div className="relative">
             <Image
               alt="Card background"
-              className="h-[200px] w-[400px] rounded-xl object-cover object-center"
+              className="h-[200px] w-full md:w-[400px] rounded-xl object-cover object-center"
               src={imageSrc}
               width={300}
               height={150}
