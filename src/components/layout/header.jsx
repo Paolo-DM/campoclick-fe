@@ -89,7 +89,7 @@ export default function Header() {
             <DropdownTrigger>
               <Button
                 disableRipple
-                className="bg-transparent p-0 data-[hover=true]:bg-transparent"
+                className="bg-transparent p-0 hover:text-myTertiary data-[hover=true]:bg-transparent"
                 endContent={
                   <svg
                     fill="none"
@@ -181,7 +181,11 @@ export default function Header() {
           </DropdownMenu>
         </Dropdown>
         <NavbarItem>
-          <Link href="#" aria-current="page" className="text-inherit">
+          <Link
+            href="#"
+            aria-current="page"
+            className="text-inherit hover:text-myTertiary"
+          >
             FAQ
           </Link>
         </NavbarItem>
