@@ -4,16 +4,16 @@ import Link from "next/link";
 
 // Assets
 import logo from "../../../public/assets/imgs/logo/logo.png";
-import facebookLogo from "../../../public/assets/imgs/icons/socials/facebook_logo.svg";
-import instagramLogo from "../../../public/assets/imgs/icons/socials/instagram_logo.svg";
-import linkedinLogo from "../../../public/assets/imgs/icons/socials/linkedin_logo.svg";
-import twitterLogo from "../../../public/assets/imgs/icons/socials/twitter_logo.svg";
+import facebookLogo from "../../../public/assets/imgs/icons/socials/facebook.svg";
+import instagramLogo from "../../../public/assets/imgs/icons/socials/instagram.svg";
+import linkedinLogo from "../../../public/assets/imgs/icons/socials/linkedin.svg";
+import twitterLogo from "../../../public/assets/imgs/icons/socials/twitter.svg";
 
 function Footer() {
   return (
     <footer className="w-full bg-myPrimary py-12 text-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-wrap justify-between gap-8">
+        <div className="flex flex-wrap justify-between gap-8 border-b border-white pb-4">
           {/* Logo e descrizione */}
           <div className="w-full md:w-1/3 lg:w-1/4">
             <div className="mb-4 flex items-center">
@@ -127,7 +127,7 @@ function Footer() {
         </div>
 
         {/* Copyright */}
-        <div className="mt-12 border-t border-white text-center text-sm">
+        <div className="mt-6 text-center text-sm">
           <p>
             &copy; {new Date().getFullYear()} Campo Click. Tutti i diritti
             riservati. Progetto realizzato da{" "}
