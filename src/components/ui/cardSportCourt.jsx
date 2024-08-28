@@ -26,13 +26,7 @@ import { useRouter } from "next/navigation";
 // Server actions
 import { bookCourt } from "@/actions/bookingAction";
 
-function CardSportCourt({
-  title,
-  imageSrc,
-  imageCredit,
-  surface,
-  courtId,
-}) {
+function CardSportCourt({ title, imageSrc, imageCredit, surface, courtId }) {
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure(); // Hook da NextUI per gestire lo stato della modale
   const [activeTab, setActiveTab] = useState("availability"); // Stato per gestire la tab attiva
@@ -46,7 +40,7 @@ function CardSportCourt({
   const [isSubmitting, setIsSubmitting] = useState(false); // Stato per gestire il caricamento durante la prenotazione
 
   useEffect(() => {
-    // Recupero dal database i dati sugli orari disponibili per il campo selezionato quando il componente viene montato
+    // Recupero dal database i dati sugli orari disponibili per il campo selezionato quando il componente viene montato e quando cambia la data selezionata/ id del campo
     fetchSchedules();
   }, [selectedDate, courtId]);
 
@@ -79,7 +73,6 @@ function CardSportCourt({
       router.push(`/prenotazione-confermata?booking_id=${bookingId}`);
     } catch (error) {
       alert(error.message);
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -95,7 +88,11 @@ function CardSportCourt({
 
   return (
     <>
-      <Card className="py-4 w-11/12 md:w-fit" aria-labelledby="court-name" isHoverable>
+      <Card
+        className="w-11/12 py-4 md:w-fit"
+        aria-labelledby="court-name"
+        isHoverable
+      >
         <CardHeader className="flex-col items-start px-4 pb-0 pt-2">
           <h4 className="text-large font-bold" id="court-name">
             Campo {title}
@@ -106,12 +103,12 @@ function CardSportCourt({
           <div className="relative">
             <Image
               alt="Card background"
-              className="h-[200px] w-full md:w-[400px] rounded-xl object-cover object-center"
+              className="h-[200px] w-full rounded-xl object-cover object-center md:w-[400px]"
               src={imageSrc}
               width={300}
               height={150}
             />
-            <p className="absolute  text-xs bottom-0.5 left-1.5 text-white/70">
+            <p className="absolute bottom-0.5 left-1.5 text-xs text-white/70">
               {imageCredit}
             </p>
           </div>
@@ -145,17 +142,17 @@ function CardSportCourt({
             </>
           ) : (
             <>
-              <Button 
-                color="danger" 
-                variant="light" 
+              <Button
+                color="danger"
+                variant="light"
                 onPress={onClose}
                 isDisabled={isSubmitting}
               >
                 Chiudi
               </Button>
-              <Button 
-                color="primary" 
-                type="submit" 
+              <Button
+                color="primary"
+                type="submit"
                 form="bookingForm"
                 isLoading={isSubmitting} // Mostra il caricamento mentre viene effettuata la prenotazione
                 isDisabled={isSubmitting} // Disabilita il pulsante se la prenotazione è in corso
