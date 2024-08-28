@@ -43,6 +43,7 @@ function CardSportCourt({
   const [scheduleId, setScheduleId] = useState(""); // Stato per gestire l'id dello schedule selezionato
   const [schedules, setSchedules] = useState([]); // Stato per gestire gli orari disponibili
   const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
+  const [isSubmitting, setIsSubmitting] = useState(false); // Stato per gestire il caricamento durante la prenotazione
 
   useEffect(() => {
     // Recupero dal database i dati sugli orari disponibili per il campo selezionato quando il componente viene montato
@@ -69,6 +70,7 @@ function CardSportCourt({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsSubmitting(true);
     const formData = new FormData(event.target);
     try {
       const bookingResponse = await bookCourt(formData);
@@ -77,6 +79,8 @@ function CardSportCourt({
       router.push(`/prenotazione-confermata?booking_id=${bookingId}`);
     } catch (error) {
       alert(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -96,7 +100,6 @@ function CardSportCourt({
           <h4 className="text-large font-bold" id="court-name">
             Campo {title}
           </h4>
-          {/* <p className="text-tiny font-bold uppercase">{description}</p> */}
           <small className="text-default-500">Superficie: {surface}</small>
         </CardHeader>
         <CardBody className="overflow-visible py-2">
@@ -142,11 +145,22 @@ function CardSportCourt({
             </>
           ) : (
             <>
-              <Button color="danger" variant="light" onPress={onClose}>
+              <Button 
+                color="danger" 
+                variant="light" 
+                onPress={onClose}
+                isDisabled={isSubmitting}
+              >
                 Chiudi
               </Button>
-              <Button color="primary" type="submit" form="bookingForm">
-                Prenota
+              <Button 
+                color="primary" 
+                type="submit" 
+                form="bookingForm"
+                isLoading={isSubmitting} // Mostra il caricamento mentre viene effettuata la prenotazione
+                isDisabled={isSubmitting} // Disabilita il pulsante se la prenotazione è in corso
+              >
+                {isSubmitting ? "Prenotazione in corso..." : "Prenota"}
               </Button>
             </>
           )
