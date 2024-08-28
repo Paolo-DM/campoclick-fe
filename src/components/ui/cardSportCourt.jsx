@@ -6,6 +6,7 @@ import React, { useState, useEffect } from "react";
 // Components
 import CustomModal from "./customModal";
 import BookingForm from "./bookingForm";
+import TimeSlotSelector from "./timeSlotSelector";
 
 // Date-fns
 import { format } from "date-fns";
@@ -41,6 +42,7 @@ function CardSportCourt({
   const [selectedTime, setSelectedTime] = useState(""); // Stato per gestire l'orario selezionato
   const [scheduleId, setScheduleId] = useState(""); // Stato per gestire l'id dello schedule selezionato
   const [schedules, setSchedules] = useState([]); // Stato per gestire gli orari disponibili
+  const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
 
   useEffect(() => {
     // Recupero dal database i dati sugli orari disponibili per il campo selezionato quando il componente viene montato
@@ -49,6 +51,7 @@ function CardSportCourt({
 
   // Funzione per recuperare i dati degli orari disponibili per il campo selezionato
   const fetchSchedules = async () => {
+    setIsLoading(true); // Inizia il caricamento
     try {
       const response = await fetch(
         // `${process.env.NEXT_PUBLIC_API_HOST}/schedules/?court_id=${courtId}`,
@@ -59,6 +62,8 @@ function CardSportCourt({
       setSchedules(data);
     } catch (error) {
       console.error("Error fetching schedules:", error);
+    } finally {
+      setIsLoading(false); // Termina il caricamento
     }
   };
 
@@ -166,34 +171,13 @@ function CardSportCourt({
                   />
                 </div>
                 {/* Fasce orari disponibili */}
-                <div className="flex w-full flex-col text-center md:w-1/2">
-                  <p className="text-lg font-semibold">Orari disponibili</p>
-                  <p className="text-sm">
-                    Scegli una fascia oraria tra quelle disponibili
-                  </p>
-                  <div className="flex flex-row flex-wrap justify-center">
-                    {schedules.map((slot) => (
-                      <Button
-                        // isDisabled={!slot.is_available}
-                        key={slot.time_slot}
-                        className="m-2 rounded-lg p-2 text-xs shadow-md"
-                        onPress={() => {
-                          setSelectedTime(slot.time_slot);
-                          setScheduleId(slot.schedule_id);
-                        }}
-                        color={
-                          slot.time_slot === selectedTime
-                            ? "primary"
-                            : "default"
-                        }
-                      >
-                        {slot.time_slot}:00 - {slot.time_slot + 1}:00
-                        <br />
-                        {slot.price} €
-                      </Button>
-                    ))}
-                  </div>
-                </div>
+                <TimeSlotSelector
+                  isLoading={isLoading}
+                  schedules={schedules}
+                  selectedTime={selectedTime}
+                  setSelectedTime={setSelectedTime}
+                  setScheduleId={setScheduleId}
+                />
               </div>
             </Tab>
             {/* TAB "PRENOTA" */}
