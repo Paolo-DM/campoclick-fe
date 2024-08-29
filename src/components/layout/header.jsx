@@ -182,7 +182,7 @@ export default function Header() {
         </Dropdown>
         <NavbarItem>
           <Link
-            href="#"
+            href="/faq"
             aria-current="page"
             className="text-inherit hover:text-myTertiary"
           >

@@ -76,6 +76,14 @@ function Footer() {
                   Calcio
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="transition-colors hover:text-gray-300"
+                >
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 
