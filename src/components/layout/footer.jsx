@@ -35,7 +35,7 @@ function Footer() {
           {/* Link alle pagine principali */}
           <div className="w-full md:w-1/4">
             <h3 className="mb-4 text-lg font-semibold">Link Utili</h3>
-            <ul className="flex flex-row items-center justify-between space-y-2 md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-2 md:space-y-0">
+            <ul className="flex flex-row items-center justify-between md:grid md:grid-cols-2 md:gap-x-4 md:gap-y-2 md:space-y-0">
               <li>
                 <Link
                   href="/"
