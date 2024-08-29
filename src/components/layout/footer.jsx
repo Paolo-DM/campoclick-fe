@@ -20,8 +20,8 @@ function Footer() {
               <Image
                 src={logo}
                 alt="Logo del sito"
-                width={80}
-                height={80}
+                width={50}
+                height={50}
                 className="mr-4"
               />
               <h2 className="text-2xl font-bold">Campo Click</h2>
