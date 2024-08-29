@@ -1,6 +1,7 @@
 // Components
 import CardWithText from "@/components/ui/cardWithText";
 import HeroImage from "@/components/ui/heroImage";
+import FeaturesSection from "@/components/layout/featuresSection";
 
 // Imgs
 import homeHeroImg from "/public/assets/imgs/heroImgs/courts.webp";
@@ -24,10 +25,10 @@ export default function Home() {
       />
       {/* Sezione con card raffiguranti gli sport per i quali è possibile prenotare un campo */}
       <section className="my-4 md:my-14">
-        <h1 className="mb-2 text-center text-xl font-bold md:text-5xl text-myPrimary">
+        <h1 className="mb-2 text-center text-xl font-bold md:text-4xl text-myPrimary">
           Trova il campo perfetto per te
         </h1>
-        <p className="mb-4 text-center text-sm md:mb-6 md:text-2xl">
+        <p className="mb-4 text-center text-sm md:mb-6 md:text-xl">
           Scegli il tuo sport preferito e prenota ora
         </p>
         <div className="flex flex-wrap justify-evenly gap-6">
@@ -43,6 +44,8 @@ export default function Home() {
           ))}
         </div>
       </section>
+      {/* Sezione con le caratteristiche principali del sito */}
+      <FeaturesSection />
     </main>
   );
 }
