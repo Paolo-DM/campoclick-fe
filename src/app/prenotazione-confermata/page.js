@@ -19,7 +19,7 @@ async function BookingConfirmationPage({ searchParams }) {
   const bookingData = await booking.json();
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-start gap-6 pt-16">
+    <div className="flex w-full flex-col items-center justify-start gap-6 py-16 md:min-h-[80vh]">
       <h1 className="text-center text-3xl font-bold text-myPrimary">
         Prenotazione Confermata!
       </h1>
