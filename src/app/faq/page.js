@@ -12,15 +12,15 @@ const faqData = [
   },
   {
     question: "Posso cancellare una prenotazione?",
-    answer: "Sì, puoi cancellare una prenotazione contattando il nostro servizio di assistenza via WhatsApp al numero +39 123 456 7890. Ti preghiamo di farlo con almeno 24 ore di anticipo per evitare eventuali penali."
+    answer: "Sì, puoi cancellare una prenotazione contattando il nostro servizio di assistenza via WhatsApp al numero +39 123 456 7890. Ti preghiamo di farlo con almeno 24 ore di anticipo."
   },
   {
     question: "Quali metodi di pagamento accettate?",
-    answer: "Accettiamo pagamenti con carte di credito/debito (Visa, MasterCard, American Express), PayPal e bonifico bancario."
+    answer: "In struttura accettiamo pagamenti in contanti e pagamenti con carta di credito/debito."
   },
   {
     question: "Cosa succede in caso di maltempo?",
-    answer: "In caso di condizioni meteorologiche avverse che rendano impossibile l'utilizzo del campo, ti contatteremo per riprogrammare la tua prenotazione o offrirti un rimborso completo."
+    answer: "In caso di condizioni meteorologiche avverse che rendano impossibile l'utilizzo del campo, ti contatteremo per riprogrammare la tua prenotazione in un'altra data."
   }
 ];
 
