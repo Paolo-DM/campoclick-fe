@@ -26,7 +26,7 @@ async function BookingConfirmationPage({ searchParams }) {
       <p className="text-center text-xl text-mySecondary">
         Per qualsiasi informazione puoi contattarci al nostro numero
         dell’assistenza clienti &nbsp;
-        <strong>+39 333 3333333</strong>.
+        <strong>+39 123 456 7890</strong>.
       </p>
       <Card className="mt-6 w-11/12 bg-myTertiary/60 text-mySecondary shadow-lg md:max-w-[800px]">
         <CardBody className="md:flex-rows flex flex-col justify-center gap-4 space-y-4 p-6 md:flex-row md:items-center">
